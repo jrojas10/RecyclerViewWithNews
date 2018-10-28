@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+
 import com.example.hollo.newsapp.Utils.JSONutils;
 import com.example.hollo.newsapp.Utils.NetworkUtils;
 import com.example.hollo.newsapp.models.News;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity  {
     private TextView mSearchResultsTextView;
     private ProgressBar mProgressBar;
     private static final String TAG = "MainActivity";
-
+    private static final String SEARCH_QUERY_URL_EXTRA = "searchQuery";
     private static final String SEARCH_QUERY_RESULTS = "searchResults";
     private RecyclerView mRecyclerView;
     private NewsAdapter mAdapter;
@@ -46,10 +47,7 @@ public class MainActivity extends AppCompatActivity  {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        if(savedInstanceState != null && savedInstanceState.containsKey(SEARCH_QUERY_RESULTS)){
-            String searchResults = savedInstanceState.getString(SEARCH_QUERY_RESULTS);
-            populateRecyclerView(searchResults);
-        }
+
 
     }
     private URL makeQuery(){
@@ -59,6 +57,9 @@ public class MainActivity extends AppCompatActivity  {
         Log.d("mycode",urlString);
         return searchURL;
     }
+
+
+
     class QueryTask extends AsyncTask<URL, Void, String> {
 
         @Override
@@ -112,5 +113,6 @@ public class MainActivity extends AppCompatActivity  {
         mAdapter.mNews.addAll(news);
         mAdapter.notifyDataSetChanged();
     }
+
 
 }
