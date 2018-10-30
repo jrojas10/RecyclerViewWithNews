@@ -20,7 +20,7 @@ public class NetworkUtils {
             ="sort";
    // final static String sortBy = "author";
 
-    public static URL buildUrl(String SearchQuery) {
+    public static URL buildURL() {
         Uri builtUri = Uri.parse(BASE_URL).buildUpon()
               //  .appendQueryParameter(PARAM_QUERY,SearchQuery)
               //  .appendQueryParameter(PARAM_SORT, sortBy)

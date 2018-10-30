@@ -1,13 +1,13 @@
 package com.example.hollo.newsapp.models;
 
-public class News {
+public class NewsItem {
     private String author;
     private String title;
     private String description;
     private String url;
     private String urlToImage;
     private String publishedAt;
-    public News(String author, String title, String description, String url, String urlToImage, String publishedAt){
+    public NewsItem(String author, String title, String description, String url, String urlToImage, String publishedAt){
         this.author = author;
         this.title = title;
         this.description = description;

@@ -8,24 +8,22 @@ import android.view.ViewGroup;
 import android.content.Context;
 import android.widget.TextView;
 
-import com.example.hollo.newsapp.models.News;
-
-import org.w3c.dom.Text;
+import com.example.hollo.newsapp.models.NewsItem;
 
 import java.util.ArrayList;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsItemViewHolder> {
 Context mContext;
-ArrayList<News> mNews;
+ArrayList<NewsItem> mNews;
 
 
 
-public NewsAdapter(Context context, ArrayList<News> news){
+public NewsAdapter(Context context, ArrayList<NewsItem> news){
     this.mContext = context;
     this.mNews = news;
 }
 
-    public class NewsHolder extends RecyclerView.ViewHolder{
+    public class NewsItemViewHolder extends RecyclerView.ViewHolder{
         TextView author;
         TextView title;
         TextView description;
@@ -33,22 +31,26 @@ public NewsAdapter(Context context, ArrayList<News> news){
         TextView urlToImage;
         TextView publishedAt;
 
-        public NewsHolder(View itemView){
+        public NewsItemViewHolder(View itemView){
             super(itemView);
-            author = (TextView) itemView.findViewById(R.id.author);
+          //  author = (TextView) itemView.findViewById(R.id.author);
             title = (TextView) itemView.findViewById(R.id.title);
             description = (TextView) itemView.findViewById(R.id.description);
-            url = (TextView) itemView.findViewById(R.id.url);
-            urlToImage = (TextView) itemView.findViewById(R.id.url);
+          //  url = (TextView) itemView.findViewById(R.id.url);
+          //  urlToImage = (TextView) itemView.findViewById(R.id.url);
             publishedAt =  (TextView) itemView.findViewById(R.id.publishedAt);
         }
         void bind (final int listIndex) {
-            author.setText(mNews.get(listIndex).getAuthor());
-            title.setText(mNews.get(listIndex).getTitle());
-            description.setText(mNews.get(listIndex).getDescription());
-            url.setText(mNews.get(listIndex).getUrl());
-            urlToImage.setText(mNews.get(listIndex).getUrlToImage());
-            publishedAt.setText(mNews.get(listIndex).getPublishedAt());
+            //author.setText(mNews.get(listIndex).getAuthor());
+            title.setText(R.string.title);
+            title.append(mNews.get(listIndex).getTitle());
+            //title.setText(mNews.get(listIndex).getTitle());
+            description.setText(R.string.description);
+            description.append(mNews.get(listIndex).getDescription());
+            //url.setText(mNews.get(listIndex).getUrl());
+           // urlToImage.setText(mNews.get(listIndex).getUrlToImage());
+            publishedAt.setText(R.string.date);
+            publishedAt.append(mNews.get(listIndex).getPublishedAt());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -63,19 +65,19 @@ public NewsAdapter(Context context, ArrayList<News> news){
 
     }
     @Override
-    public NewsAdapter.NewsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NewsItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 
         View view = inflater.inflate(R.layout.item, parent,shouldAttachToParentImmediately);
-        NewsHolder viewHolder = new NewsHolder(view);
+        NewsItemViewHolder viewHolder = new NewsItemViewHolder(view);
         return viewHolder;
 
     }
 
     @Override
-    public void onBindViewHolder(NewsAdapter.NewsHolder holder, int position) {
+    public void onBindViewHolder(NewsItemViewHolder holder, int position) {
         holder.bind(position);
     }
 
