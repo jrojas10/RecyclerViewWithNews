@@ -1,6 +1,7 @@
 package com.example.hollo.newsapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,7 @@ public NewsAdapter(Context context, ArrayList<NewsItem> news){
     this.mNews = news;
 }
 
-    public class NewsItemViewHolder extends RecyclerView.ViewHolder{
+    public class NewsItemViewHolder extends RecyclerView.ViewHolder {
         TextView author;
         TextView title;
         TextView description;
@@ -55,13 +56,14 @@ public NewsAdapter(Context context, ArrayList<NewsItem> news){
                 @Override
                 public void onClick(View view) {
                     String urlString = mNews.get(listIndex).getUrl();
-                    Intent intent = new Intent(mContext,WebActivity.class);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlString));
                     intent.putExtra("urlString",urlString);
                     mContext.startActivity(intent);
 
                 }
             });
         }
+
 
     }
     @Override
@@ -75,6 +77,9 @@ public NewsAdapter(Context context, ArrayList<NewsItem> news){
         return viewHolder;
 
     }
+
+
+
 
     @Override
     public void onBindViewHolder(NewsItemViewHolder holder, int position) {

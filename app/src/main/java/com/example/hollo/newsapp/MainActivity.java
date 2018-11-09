@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemThatWasClickedId = item.getItemId();
-        if (itemThatWasClickedId == R.id.action_update) {
+        if (itemThatWasClickedId == R.id.action_search) {
             URL url = makeQuery();
             NewsQueryTask task = new NewsQueryTask();
             task.execute(url);
@@ -110,12 +110,12 @@ public class MainActivity extends AppCompatActivity  {
         getMenuInflater().inflate(R.menu.get_news,menu);
         return true;
     }
-//    public void populateRecyclerView(String searchResults){
-//        Log.d("mycode", searchResults);
-//        news = JsonUtils.parseNews(searchResults);
-//        mAdapter.mNews.addAll(news);
-//        mAdapter.notifyDataSetChanged();
-//    }
+    public void populateRecyclerView(String searchResults){
+        Log.d("mycode", searchResults);
+        news = JsonUtils.parseNews(searchResults);
+        mAdapter.mNews.addAll(news);
+        mAdapter.notifyDataSetChanged();
+    }
 
 
 }

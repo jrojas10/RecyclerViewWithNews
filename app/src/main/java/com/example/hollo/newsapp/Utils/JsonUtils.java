@@ -10,10 +10,10 @@ import java.util.ArrayList;
 public class JsonUtils {
 
 //    public  static ArrayList<NewsItem> parseNews(String jsonResult){
-public  static ArrayList<NewsItem> parseNews(String jObject){
+public  static ArrayList<NewsItem> parseNews(String JSONString){
         ArrayList<NewsItem> newsList = new ArrayList<>();
         try{
-            JSONObject mainJSONObject = new JSONObject(String.valueOf(jObject));
+            JSONObject mainJSONObject = new JSONObject(JSONString);
             JSONArray articles = mainJSONObject.getJSONArray("articles");
 
             for(int i = 0; i<articles.length();i++){
