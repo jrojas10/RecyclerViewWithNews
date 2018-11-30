@@ -1,7 +1,11 @@
 package com.example.hollo.newsapp;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,10 +21,12 @@ import android.widget.TextView;
 import com.example.hollo.newsapp.Utils.JsonUtils;
 import com.example.hollo.newsapp.Utils.NetworkUtils;
 import com.example.hollo.newsapp.models.NewsItem;
+import com.example.hollo.newsapp.models.NewsItemViewModel;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity  {
     private TextView text;
@@ -33,6 +39,9 @@ public class MainActivity extends AppCompatActivity  {
     private RecyclerView mRecyclerView;
     private NewsAdapter mAdapter;
     private ArrayList<NewsItem> news = new ArrayList<>();
+    private NewsItemViewModel mNewsVM;
+    private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,15 +54,34 @@ public class MainActivity extends AppCompatActivity  {
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.news_recyclerview);
-        mAdapter = new NewsAdapter(this,news);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        context = this;
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mNewsVM = ViewModelProviders.of(this).get(NewsItemViewModel.class);
+        mNewsVM.getAllNewsItems().observe(this, new Observer<List<NewsItem>>() {
+            @Override
+            public void onChanged(@Nullable final List<NewsItem> newsItems) {
+                mAdapter = new NewsAdapter(context, new ArrayList<NewsItem>(newsItems));
+                mRecyclerView.setAdapter(mAdapter);
+                mRecyclerView.setLayoutManager(layoutManager);
+            }
+        });
+        ScheduleUtilities.scheduleRefresh(this);
+
 
 
 
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemThatWasClickedId = item.getItemId();
+        if (itemThatWasClickedId == R.id.action_search) {
+            mNewsVM.syncNews();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private URL makeQuery(){
-       // String query = mSearchBoxEditText.getText().toString();
+        // String query = mSearchBoxEditText.getText().toString();
         URL searchURL = NetworkUtils.buildURL();
         String urlString = searchURL.toString();
         Log.d("mycode",urlString);
@@ -88,23 +116,12 @@ public class MainActivity extends AppCompatActivity  {
             super.onPostExecute(s);
             mProgressBar.setVisibility(View.GONE);
             news = JsonUtils.parseNews(s);
-           mAdapter.mNews.addAll(news);
+            mAdapter.mNews.addAll(news);
             mAdapter.notifyDataSetChanged();
             Log.d("onPostExecute","news created to json");
         }
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemThatWasClickedId = item.getItemId();
-        if (itemThatWasClickedId == R.id.action_search) {
-            URL url = makeQuery();
-            NewsQueryTask task = new NewsQueryTask();
-            task.execute(url);
 
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.get_news,menu);

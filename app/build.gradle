@@ -28,6 +28,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.1'
+    implementation 'com.android.support:cardview-v7:21.+'
+
+    implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     androidTestImplementation('com.android.support.test.espresso:espresso-contrib:2.2') {
         // Necessary to avoid version conflicts
@@ -36,4 +40,13 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude module: 'recyclerview-v7'
     }
+
+    //room dependencies
+    implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+    androidTestImplementation "android.arch.persistence.room:testing:$rootProject.roomVersion"
+
+    // Lifecycle components
+    implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
 }

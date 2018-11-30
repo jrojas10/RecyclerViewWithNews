@@ -18,7 +18,7 @@ public class NetworkUtils {
             = "q";
     final static String PARAM_SORT
             ="sort";
-   // final static String sortBy = "author";
+   // final static String sor tBy = "author";
 
     public static URL buildURL() {
         Uri builtUri = Uri.parse(BASE_URL).buildUpon()

@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.content.Context;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hollo.newsapp.models.NewsItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,15 +33,18 @@ public NewsAdapter(Context context, ArrayList<NewsItem> news){
         TextView url;
         TextView urlToImage;
         TextView publishedAt;
+        ImageView img;
 
         public NewsItemViewHolder(View itemView){
             super(itemView);
           //  author = (TextView) itemView.findViewById(R.id.author);
-            title = (TextView) itemView.findViewById(R.id.title);
+           // title = (TextView) itemView.findViewById(R.id.title);
+            title = (TextView)itemView.findViewById(R.id.title);
             description = (TextView) itemView.findViewById(R.id.description);
           //  url = (TextView) itemView.findViewById(R.id.url);
           //  urlToImage = (TextView) itemView.findViewById(R.id.url);
-            publishedAt =  (TextView) itemView.findViewById(R.id.publishedAt);
+          //  publishedAt =  (TextView) itemView.findViewById(R.id.publishedAt);
+            img = (ImageView)itemView.findViewById(R.id.img);
         }
         void bind (final int listIndex) {
             //author.setText(mNews.get(listIndex).getAuthor());
@@ -50,8 +55,14 @@ public NewsAdapter(Context context, ArrayList<NewsItem> news){
             description.append(mNews.get(listIndex).getDescription());
             //url.setText(mNews.get(listIndex).getUrl());
            // urlToImage.setText(mNews.get(listIndex).getUrlToImage());
-            publishedAt.setText(R.string.date);
-            publishedAt.append(mNews.get(listIndex).getPublishedAt());
+//            publishedAt.setText(R.string.date);
+//            publishedAt.append(mNews.get(listIndex).getPublishedAt());
+            String url = mNews.get(listIndex).getUrlToImage();
+            if(url != null){
+            Picasso.get()
+                    .load(url)
+                    .into(img);
+            }
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
