@@ -6,7 +6,8 @@
     <string name="date">Date: </string>
     <string name="poweredBy">Powered by NewsAPI</string>
     <string name = "primary">Primary</string>
-    <string name="refresh_title">Refresh title</string>
-    <string name="refresh_body">Refresh Body</string>
+    <string name="refresh_title">Refresh</string>
+    <string name="refresh_body">Update news</string>
+    <string name = "refresh_now">REFRESH NOW</string>
 
 </resources>

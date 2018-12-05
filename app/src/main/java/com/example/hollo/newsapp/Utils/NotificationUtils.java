@@ -45,12 +45,12 @@ public class NotificationUtils {
         }
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, NEWS_REFRESH_REMINDER_NOTIFICATION_CHANNEL_ID)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                .setSmallIcon(R.drawable.ic_refresh_black)
+                .setSmallIcon(R.drawable.android_refresh)
                 .setLargeIcon(largeIcon(context))
                 .setContentTitle(context.getString(R.string.refresh_title))
                 .setContentText(context.getString(R.string.refresh_body))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(
-                        context.getString(R.string.refresh_body)))
+                        context.getString(R.string.refresh_now)))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent(context))
                 .addAction(refreshNewsAction(context))
@@ -73,7 +73,7 @@ public class NotificationUtils {
                 ignoreReminderIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
         Action ignoreReminderAction = new Action(R.drawable.ic_cancel_black_24px,
-                "No, thanks.",
+                "No...",
                 ignoreReminderPendingIntent);
         return ignoreReminderAction;
     }
@@ -86,7 +86,7 @@ public class NotificationUtils {
                 ACTION_REFRESH_PENDING_INTENT_ID,
                 refreshNewsIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        Action refreshNewsAction = new Action(R.drawable.ic_refresh_black,
+        Action refreshNewsAction = new Action(R.drawable.android_refresh,
                 "Updating",
                 refreshNewsPendingIntent);
         return refreshNewsAction;
@@ -103,7 +103,7 @@ public class NotificationUtils {
 
     private static Bitmap largeIcon(Context context) {
         Resources res = context.getResources();
-        Bitmap largeIcon = BitmapFactory.decodeResource(res, R.drawable.ic_refresh_black);
+        Bitmap largeIcon = BitmapFactory.decodeResource(res, R.drawable.android_refresh);
         return largeIcon;
     }
 }

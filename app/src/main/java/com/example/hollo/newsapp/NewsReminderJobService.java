@@ -1,5 +1,6 @@
 package com.example.hollo.newsapp;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.firebase.jobdispatcher.JobParameters;
@@ -11,13 +12,11 @@ public class NewsReminderJobService extends JobService {
     @Override
     public boolean onStartJob(final JobParameters job) {
         mBackgroundTask = new AsyncTask() {
-            /*@Override
-            protected void onPreExecute(){
-                Toast.makeText(NewsReminderJobService.this, "News refreshed", Toast.LENGTH_SHORT).show();
-            }*/
+
 
             @Override
             protected Object doInBackground(Object[] params) {
+                Context context  =NewsReminderJobService.this;
                 ReminderTasks.executeTask(NewsReminderJobService.this, ReminderTasks.ACTION_REMINDER);
                 //NewsItemRepository.syncNews();
                 return null;
